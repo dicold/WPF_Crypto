@@ -8,13 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DiffEngine" Version="9.1.0" />
+    <PackageReference Include="Microsoft.TeamFoundationServer.ExtendedClient" Version="16.170.0" />
     <PackageReference Include="Microsoft.VisualStudio.Utilities" Version="17.2.32505.113" />
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

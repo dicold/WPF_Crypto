@@ -3,9 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPF_Crypto" xmlns:viewmodels="clr-namespace:WPF_Crypto.ViewModels"
+        xmlns:local="clr-namespace:WPF_Crypto"
+        xmlns:viewmodels="clr-namespace:WPF_Crypto.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="532" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <viewmodels:MainViewModel/>
     </Window.DataContext>
@@ -28,14 +30,16 @@
                 ToolTip="Main Menu"
                 x:Name="buttMain"
                 Command="{Binding MainMenu_Click}"
-                Cursor="Hand"/>
+                Cursor="Hand"
+                Content="Home"/>
             <!--#endregion-->
             <!--#region Navigation buttons -->
             <StackPanel Grid.Row="1" VerticalAlignment="Center">
                 <Button
-                    ToolTip="Добавление данных, команда 'Insert'"
+                    ToolTip="More Info"
                     Command="{Binding InfoMenu_Click}"
-                    Cursor="Hand" Height="53" />
+                    Cursor="Hand" Height="64"
+                    Content="Info" RenderTransformOrigin="0.591,-1.503"/>
             </StackPanel>
             <!--#endregion-->
             <!--#region Exit button -->
@@ -43,18 +47,16 @@
                 Grid.Row="2"
                 ToolTip="Exit" 
                 Tag="IsCloseButton"
-                Command="{Binding Exit_Click}"/>
+                Command="{Binding Exit_Click}"
+                Content="Exit"/>
             <!--#endregion-->
         </Grid>
         <!--#endregion-->
 
         <!--#region Content frame -->
         <Grid Grid.Column="1">
-            <Frame
-            Style="{DynamicResource modern_frame}"
-            Content="{Binding CurrentPage}"
-            NavigationUIVisibility="Hidden"
-            Opacity="{Binding FrameOpacity}" Margin="0,169,0,0" />
+            <Frame Content="{Binding CurrentPage}"
+            NavigationUIVisibility="Hidden"/>
         </Grid>
         <!--#endregion-->
     </Grid>
