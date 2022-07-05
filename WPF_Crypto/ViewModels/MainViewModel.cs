@@ -19,6 +19,7 @@ namespace WPF_Crypto.ViewModels
     {
         public MainViewModel()
         {
+            AssetStore.CreateAsset();
             CurrentPage = new Views.Pages.Home();
         }
 
@@ -68,5 +69,6 @@ namespace WPF_Crypto.ViewModels
             get => new DelegateCommand(() => Application.Current.Shutdown());
         }
         #endregion
+
     }
 }

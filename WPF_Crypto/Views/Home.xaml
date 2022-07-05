@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WPF_Crypto.Views.Pages"
       mc:Ignorable="d"
-      Title="Page1" Width="736">
+      Title="Page1" Width="736" d:DesignHeight="116.838">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -15,7 +15,7 @@
         <DataGrid
             x:Name="dataGrid" 
             HorizontalAlignment="Left"
-            VerticalAlignment="Center"
+            VerticalAlignment="Top"
             SelectionMode="Single"
             IsReadOnly="True"
             AutoGenerateColumns="False"

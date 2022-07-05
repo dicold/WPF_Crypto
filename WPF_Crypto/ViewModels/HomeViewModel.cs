@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using Newtonsoft.Json;
+using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +10,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Input;
 using WPF_Crypto.Models;
 
 namespace WPF_Crypto.ViewModels
@@ -17,36 +19,25 @@ namespace WPF_Crypto.ViewModels
     {
         public HomeViewModel()
         {
-            Top10Cryptos = new ObservableCollection<Asset>(LoadCryptoAsset());
-            _view = new ListCollectionView(_top10cryptos);
+            Asset10 = new ObservableCollection<Asset>();
+            _view = new ListCollectionView(_asset10);
         }
 
-        #region Loading the asset of cryptocurrencies (top 10)
+        #region Get a Top 10
 
-        private ObservableCollection<Asset> _top10cryptos;
-
-        public ObservableCollection<Asset> Top10Cryptos
+        private ObservableCollection<Asset> _asset10 = new();
+        public ObservableCollection<Asset> Asset10
         {
-            get => _top10cryptos;
-            set => _top10cryptos = value;
-        }
-        public List<Asset> LoadCryptoAsset()
-        {
-            string url = "https://www.cryptingup.com/api/assets?size=10";
-            try
+            get => _asset10;
+            set
             {
-                string JSON = new WebClient().DownloadString(url);
-                var data = JsonConvert.DeserializeObject<AssetList>(JSON);
-                return data.Assets.ToList();
-            }
-            catch(Exception exp)
-            {
-                throw new InvalidOperationException("Can`t get the data.", exp);
+                for (int i = 0; i < 10; i++)
+                    _asset10.Add(AssetStore._allAssets[i]);
             }
         }
         #endregion
 
-        #region List => Collection
+        #region List => ListCollection
 
         private ListCollectionView _view;
 

@@ -5,25 +5,24 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WPF_Crypto.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450"
-      Title="Page1" Width="710">
+      d:DesignHeight="369"
+      Title="Page1" Width="565">
 
     <Grid>
-        <TextBlock
+        <ComboBox
             HorizontalAlignment="Left"
-            TextWrapping="Wrap"
-            Text="More info about Crypto[ID]"
-            VerticalAlignment="Center"
-            Foreground="Red" Height="108" Width="596" FontSize="48" RenderTransformOrigin="0,0" Margin="76,0,0,0">
-            <TextBlock.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleY="0.299"/>
-                    <RotateTransform/>
-                    <TranslateTransform Y="0.51"/>
-                </TransformGroup>
-            </TextBlock.RenderTransform>
-        </TextBlock>
-        <Button Content="Button" Command="{Binding Test_Click}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="34" Width="82" Cursor="Hand" Margin="0,257,0,0"/>
+            Margin="25,50,0,0"
+            VerticalAlignment="Top"
+            Width="195"
+            IsEditable="True"
+            ItemsSource="{Binding Path=Assets}"
+            >
+        </ComboBox>
+        <TextBlock HorizontalAlignment="Left" Margin="25,25,0,0" TextWrapping="Wrap"
+                   Text="Type in currency name or code to search more info about it." VerticalAlignment="Top"/>
+        <Button Content="Get information"
+                Command="{Binding GetInfo_Click}"
+                HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Height="22" Width="115"/>
+
     </Grid>
 </Page>
