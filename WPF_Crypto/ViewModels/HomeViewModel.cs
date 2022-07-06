@@ -19,20 +19,20 @@ namespace WPF_Crypto.ViewModels
     {
         public HomeViewModel()
         {
-            Asset10 = new ObservableCollection<Asset>();
+            Asset10 = new ObservableCollection<AssetModel>();
             _view = new ListCollectionView(_asset10);
         }
 
         #region Get a Top 10
 
-        private ObservableCollection<Asset> _asset10 = new();
-        public ObservableCollection<Asset> Asset10
+        private ObservableCollection<AssetModel> _asset10 = new();
+        public ObservableCollection<AssetModel> Asset10
         {
             get => _asset10;
             set
             {
                 for (int i = 0; i < 10; i++)
-                    _asset10.Add(AssetStore._allAssets[i]);
+                    _asset10.Add(AssetStoreModel._allAssets[i]);
             }
         }
         #endregion

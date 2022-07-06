@@ -1,38 +1,116 @@
 ﻿using GalaSoft.MvvmLight;
-using System.Collections.Generic;
+using Prism.Commands;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 using WPF_Crypto.Models;
+using WPF_Crypto.ViewModels.Base;
 
 namespace WPF_Crypto.ViewModels
 {
-    class InfoViewModel : ViewModelBase
+    class InfoViewModel : ViewModelBase, INotifyPropertyChanged
     {
         public InfoViewModel()
         {
-            Assets = new();
+            Assets = new ObservableCollection<AssetModel>(tmp_assets);
         }
 
-        #region ComboBox List
-        private ObservableCollection<string> _assets = new();
-        private readonly ObservableCollection<Asset> tmp_assets = AssetStore._allAssets;
+        private readonly ObservableCollection<AssetModel> tmp_assets = AssetStoreModel._allAssets;
 
-        public ObservableCollection<string> Assets
+        #region Item filter
+
+        private string _Filter;
+        public string Filter
         {
-            get => _assets;
+            get => _Filter;
             set
             {
-                for (int i = 0; i < tmp_assets.Count; i++)
+                if (Set(ref _Filter, value))
+                    _AssetsViewSource?.View.Refresh();
+            }
+        }
+
+        void FilterAssets(object sender, FilterEventArgs e)
+        {
+            if (string.IsNullOrEmpty(Filter))
+                e.Accepted = true;
+            else
+            {
+                AssetModel asset = (AssetModel)e.Item;
+                e.Accepted = asset.asset_id.ToUpper().Contains(Filter.ToUpper()) || asset.name.ToUpper().Contains(Filter.ToUpper());
+            }
+        }
+        #endregion
+
+        #region Item collection
+
+        private ObservableCollection<AssetModel> _Assets = new();
+        public ObservableCollection<AssetModel> Assets
+        {
+            get => _Assets;
+            set
+            {
+                if (Set(ref _Assets, value))
                 {
-                    string name = tmp_assets[i].name;
-                    if (name != "")
-                        _assets.Add(name);
-                    string asset_id = tmp_assets[i].asset_id;
-                    if (asset_id != "")
-                        _assets.Add(asset_id);
+                    _AssetsViewSource = new CollectionViewSource
+                    {
+                        Source = value
+                    };
+
+                    _AssetsViewSource.View.Filter = item => true;
+                    _AssetsViewSource.Filter += FilterAssets;
+                    _AssetsViewSource.View.Refresh();
+
+                    OnPropertyChanged(nameof(AssetsView));
                 }
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string? PropertyName = null)
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+
+        private CollectionViewSource _AssetsViewSource;
+        public ICollectionView AssetsView => _AssetsViewSource?.View;
+
+        private AssetModel _SelectedAsset;
+        public AssetModel SelectedAsset { get => _SelectedAsset;
+            set
+            {
+                Set(ref _SelectedAsset, value);
+                TEXT = CreateText(_SelectedAsset);
+            } 
+        }
+        #endregion
+
+        #region Text creation
+        private string _TEXT;
+
+        public string TEXT
+        {
+            get => _TEXT;
+            set
+            {
+                _TEXT = value;
+                OnPropertyChanged("TEXT");
+            }
+        }
+
+        public string CreateText(AssetModel asset)
+        {
+            string res = "\t" + asset.asset_id + "\t" + asset.name
+            + "\n\nPrice:\n\t" + asset.price
+            + "$\nVolume:\n\t" + asset.volume_24h
+            + "\nChange:\nFor 1 hour:     " + asset.change_1h
+            + "%\nFor 24 hours:  " + asset.change_24h 
+            + "%\nFor 7 days:      " + asset.change_7d + "%";
+
+            return res;
         }
         #endregion
     }

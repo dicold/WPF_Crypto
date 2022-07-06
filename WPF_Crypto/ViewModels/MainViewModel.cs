@@ -19,7 +19,7 @@ namespace WPF_Crypto.ViewModels
     {
         public MainViewModel()
         {
-            AssetStore.CreateAsset();
+            AssetStoreModel.CreateAsset();
             CurrentPage = new Views.Pages.Home();
         }
 
@@ -62,6 +62,11 @@ namespace WPF_Crypto.ViewModels
         public ICommand InfoMenu_Click
         {
             get => new DelegateCommand(() => CurrentPage = new Views.Info());
+        }
+
+        public ICommand ConvertMenu_Click
+        {
+            get => new DelegateCommand(() => CurrentPage = new Views.Convert());
         }
 
         public static ICommand Exit_Click

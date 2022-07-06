@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace WPF_Crypto.Models
 {
-    internal class Asset
+    internal class AssetModel
     {
         public string asset_id { get; set; }
         public string name { get; set; }

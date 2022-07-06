@@ -11,7 +11,6 @@ namespace WPF_Crypto
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }
     }
 }

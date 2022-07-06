@@ -3,26 +3,66 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:WPF_Crypto.Views"
+      xmlns:local="clr-namespace:WPF_Crypto.Views" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:viewmodels="clr-namespace:WPF_Crypto.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="369"
       Title="Page1" Width="565">
-
     <Grid>
-        <ComboBox
+        <!--#region Information text -->
+        <TextBlock HorizontalAlignment="Left" Margin="25,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14">
+            Type in currency name or code <LineBreak/> to search more info about it.
+        </TextBlock>
+        <!--#endregion-->
+        
+        <!--#region Filter textbox -->
+        <TextBox
+            Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}"
             HorizontalAlignment="Left"
-            Margin="25,50,0,0"
+            Margin="25,69,0,0"
+            TextWrapping="Wrap" 
             VerticalAlignment="Top"
-            Width="195"
-            IsEditable="True"
-            ItemsSource="{Binding Path=Assets}"
-            >
-        </ComboBox>
-        <TextBlock HorizontalAlignment="Left" Margin="25,25,0,0" TextWrapping="Wrap"
-                   Text="Type in currency name or code to search more info about it." VerticalAlignment="Top"/>
-        <Button Content="Get information"
-                Command="{Binding GetInfo_Click}"
-                HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Height="22" Width="115"/>
-
+            Width="190"/>
+        <!--#endregion-->
+        
+        <!--#region ListBox of Assets -->
+        <ListBox ItemsSource="{Binding AssetsView}" 
+                 AlternationCount="1"
+                 SelectedItem="{Binding SelectedAsset}"
+                 Margin="25,87,350,32">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="m:Asset">
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Left">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="asset_id"/>
+                                    <Binding Path="name"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <!--#endregion-->
+        
+        <!--#region Detailed information TextBox -->
+        <TextBox
+            HorizontalAlignment="Left"
+            Margin="220,87,0,0"
+            TextWrapping="Wrap"
+            VerticalAlignment="Top" 
+            Background="{x:Null}"
+            FontSize="14"
+            Width="288"
+            Height="211"
+            Text="{Binding TEXT}">
+        </TextBox>
+        <!--#endregion-->
     </Grid>
 </Page>
