@@ -24,7 +24,7 @@
             VerticalAlignment="Top"
             Width="195"
             ItemsSource="{Binding ASSETS}"
-            SelectedItem="{Binding FirstPortfolioToCompare}"
+            SelectedItem="{Binding FirstComboBox}"
             Text="{Binding asset_id}" Height="22"
             >
             <ComboBox.ItemTemplate>
@@ -46,7 +46,13 @@
         <!--#endregion-->
 
         <!--#region First TextBox -->
-        <TextBox HorizontalAlignment="Left" Margin="91,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Height="22"/>
+        <TextBox 
+            Text="{Binding Count1}"
+            HorizontalAlignment="Left"
+            Margin="91,111,0,0"
+            TextWrapping="Wrap"
+            VerticalAlignment="Top"
+            Width="175" Height="22"/>
         <!--#endregion-->
 
         <!--#region Second ComboBox -->
@@ -56,7 +62,7 @@
             VerticalAlignment="Top"
             Width="194"
             ItemsSource="{Binding ASSETS}"
-            SelectedItem="{Binding FirstPortfolioToCompare}"
+            SelectedItem="{Binding SecondComboBox}"
             Text="{Binding asset_id}"
             >
             <ComboBox.ItemTemplate>
@@ -77,14 +83,31 @@
         </ComboBox>
         <!--#endregion-->
 
-        <!--#region First TextBox -->
-        <TextBox Background="Silver" HorizontalAlignment="Left" IsReadOnly="True" Margin="91,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Height="22"/>
+        <!--#region Second TextBox -->
+        <TextBox
+            Text="{Binding Count2, UpdateSourceTrigger=PropertyChanged}"
+            IsReadOnly="True"
+            Background="Silver"
+            HorizontalAlignment="Left"
+            Margin="91,195,0,0"
+            TextWrapping="Wrap"
+            VerticalAlignment="Top"
+            Width="175" Height="22"/>
         <!--#endregion-->
 
         <!--#region Button -->
         <Button
             Content="↓"
-            HorizontalAlignment="Left" Height="45" Margin="274,142,0,0" VerticalAlignment="Top" Width="17" FontSize="24" RenderTransformOrigin="0.647,0.514"/>
+            Command="{Binding ConvertClick}"
+            HorizontalAlignment="Left"
+            Height="45"
+            Margin="265,142,0,0"
+            VerticalAlignment="Top"
+            Width="34"
+            FontSize="24"
+            RenderTransformOrigin="0.647,0.514"
+            BorderThickness="0,0,0,0"
+            Background="{x:Null}"/>
         <!--#endregion-->
     </Grid>
 </Page>

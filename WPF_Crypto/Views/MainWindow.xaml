@@ -21,7 +21,7 @@
         </Grid.ColumnDefinitions>
 
         <!--#region Navigation bar -->
-        <Grid Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,46">
+        <Grid Grid.Column="0" Grid.ColumnSpan="3" Background="#FF3C3C3C">
             <Grid.RowDefinitions>
                 <RowDefinition Height="48" />
                 <RowDefinition Height="48" />
@@ -36,21 +36,28 @@
                 x:Name="buttMain"
                 Command="{Binding MainMenu_Click}"
                 Cursor="Hand"
-                Content="Home"/>
+                Content="Top 10"
+                Background="#FFF1F1F1"
+                Foreground="Black"/>
             <!--#endregion-->
             <!--#region Navigation buttons -->
             <Button Grid.Row="1"
                     ToolTip="More Info"
                     Command="{Binding InfoMenu_Click}"
                     Cursor="Hand"
-                    Content="Info" RenderTransformOrigin="0.591,-1.503"/>
+                    Content="Info" RenderTransformOrigin="0.591,-1.503" Background="#FFF1F1F1"/>
             <Button Grid.Row="2"
                     ToolTip="Convertation"
                     Command="{Binding ConvertMenu_Click}"
                     Cursor="Hand"
-                    Content="Convert" RenderTransformOrigin="0.591,-1.503"/>
+                    Content="Convert" RenderTransformOrigin="0.591,-1.503" Background="#FFF1F1F1"/>
             <!--#endregion-->
             <StackPanel Grid.Row="3"/>
+            <Button
+                ToolTip="Exit" 
+                Tag="IsCloseButton"
+                Command="{Binding Exit_Click}"
+                Content="Exit" Margin="0,67,0,0" Background="#FFF1F1F1" Grid.Row="4"/>
             <!--#region Exit button -->
             <!--#endregion-->
         </Grid>
@@ -61,11 +68,6 @@
             <Frame Content="{Binding CurrentPage}"
             NavigationUIVisibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </Grid>
-        <Button
-                ToolTip="Exit" 
-                Tag="IsCloseButton"
-                Command="{Binding Exit_Click}"
-                Content="Exit" Margin="0,304,0,0" Grid.ColumnSpan="3"/>
         <!--#endregion-->
     </Grid>
 </Window>

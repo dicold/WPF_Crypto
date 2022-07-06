@@ -9,6 +9,13 @@
       Title="Page1" Width="565">
     <Grid>
         <!--#region Information text -->
+        <TextBlock
+            HorizontalAlignment="Left"
+            Text="Detailed information"
+            Margin="25,0,0,0"
+            TextWrapping="Wrap"
+            VerticalAlignment="Top"
+            FontSize="18"/>
         <TextBlock HorizontalAlignment="Left" Margin="25,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14">
             Type in currency name or code <LineBreak/> to search more info about it.
         </TextBlock>
@@ -26,6 +33,7 @@
 
         <!--#region ListBox of Assets -->
         <ListBox ItemsSource="{Binding AssetsView}" 
+                 FontSize="12"
                  AlternationCount="1"
                  SelectedItem="{Binding SelectedAsset}"
                  Margin="25,87,350,32">
@@ -37,7 +45,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="m:Asset">
                     <DockPanel>
-                        <TextBlock DockPanel.Dock="Left">
+                        <TextBlock DockPanel.Dock="Left" >
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} {1}">
                                     <Binding Path="asset_id"/>
@@ -60,8 +68,8 @@
                         HorizontalAlignment="Center"
                         TextWrapping="Wrap"
                         VerticalAlignment="Top" 
+                        FontSize="12"
                         Background="{x:Null}"
-                        FontSize="14"
                         Width="300"
                         Height="216"
                         IsReadOnly="True"
@@ -86,6 +94,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        
         <!--#endregion-->
     </Grid>
 </Page>

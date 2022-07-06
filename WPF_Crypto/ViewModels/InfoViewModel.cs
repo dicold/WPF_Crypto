@@ -113,12 +113,12 @@ namespace WPF_Crypto.ViewModels
         /// <returns></returns>
         public string CreateInfoText(AssetModel asset)
         {
-            string res = "\t" + asset.asset_id + "\t" + asset.name
-            + "\n\nPrice:\n\t" + asset.price
-            + "$\nVolume:\n\t" + asset.volume_24h
-            + "\nChange:\nFor 1 hour:     " + asset.change_1h
-            + "%\nFor 24 hours:  " + asset.change_24h 
-            + "%\nFor 7 days:      " + asset.change_7d + "%";
+            string res = "\n\t\t" + asset.asset_id + "\t" + asset.name
+            + "\n\n\tPrice:\n\t\t" + asset.price
+            + "$\n\tVolume:\n\t\t" + asset.volume_24h
+            + "\n\tChange:\n\tFor 1 hour:     " + asset.change_1h
+            + "%\n\tFor 24 hours:  " + asset.change_24h 
+            + "%\n\tFor 7 days:      " + asset.change_7d + "%";
 
             return res;
         }
