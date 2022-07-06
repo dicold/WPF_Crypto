@@ -25,6 +25,11 @@ namespace WPF_Crypto.Models
             AllAssets = new ObservableCollection<AssetModel>(LoadCryptoAsset());
         }
 
+        /// <summary>
+        /// Retrieves all assets
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public static List<AssetModel> LoadCryptoAsset()
         {
             string url = "https://www.cryptingup.com/api/assets";

@@ -1,15 +1,14 @@
 ﻿using GalaSoft.MvvmLight;
-using Prism.Commands;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Data;
-using System.Windows.Input;
 using WPF_Crypto.Models;
-using WPF_Crypto.ViewModels.Base;
 
 namespace WPF_Crypto.ViewModels
 {
@@ -35,6 +34,11 @@ namespace WPF_Crypto.ViewModels
             }
         }
 
+        /// <summary>
+        /// Filter for all assets
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void FilterAssets(object sender, FilterEventArgs e)
         {
             if (string.IsNullOrEmpty(Filter))
@@ -47,7 +51,7 @@ namespace WPF_Crypto.ViewModels
         }
         #endregion
 
-        #region Item collection
+        #region Assets item collection
 
         private ObservableCollection<AssetModel> _Assets = new();
         public ObservableCollection<AssetModel> Assets
@@ -57,10 +61,7 @@ namespace WPF_Crypto.ViewModels
             {
                 if (Set(ref _Assets, value))
                 {
-                    _AssetsViewSource = new CollectionViewSource
-                    {
-                        Source = value
-                    };
+                    _AssetsViewSource = new CollectionViewSource { Source = value };
 
                     _AssetsViewSource.View.Filter = item => true;
                     _AssetsViewSource.Filter += FilterAssets;
@@ -76,32 +77,41 @@ namespace WPF_Crypto.ViewModels
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
 
         private CollectionViewSource _AssetsViewSource;
-        public ICollectionView AssetsView => _AssetsViewSource?.View;
+        public ICollectionView? AssetsView => _AssetsViewSource?.View;
 
         private AssetModel _SelectedAsset;
-        public AssetModel SelectedAsset { get => _SelectedAsset;
+        public AssetModel SelectedAsset
+        {
+            get => _SelectedAsset;
             set
             {
                 Set(ref _SelectedAsset, value);
-                TEXT = CreateText(_SelectedAsset);
+                TextInfo = CreateInfoText(_SelectedAsset);
+                TextShop = CreateShopText(LoadMarketAsset(_SelectedAsset));
             } 
         }
         #endregion
 
-        #region Text creation
-        private string _TEXT;
+        #region Information text about selected cryptocurrency
 
-        public string TEXT
+        private string _TextInfo;
+
+        public string TextInfo
         {
-            get => _TEXT;
+            get => _TextInfo;
             set
             {
-                _TEXT = value;
-                OnPropertyChanged("TEXT");
+                _TextInfo = value;
+                OnPropertyChanged("TextInfo");
             }
         }
 
-        public string CreateText(AssetModel asset)
+        /// <summary>
+        /// Creating a text with all information about selected cryptocurrency
+        /// </summary>
+        /// <param name="asset"></param>
+        /// <returns></returns>
+        public string CreateInfoText(AssetModel asset)
         {
             string res = "\t" + asset.asset_id + "\t" + asset.name
             + "\n\nPrice:\n\t" + asset.price
@@ -111,6 +121,60 @@ namespace WPF_Crypto.ViewModels
             + "%\nFor 7 days:      " + asset.change_7d + "%";
 
             return res;
+        }
+        #endregion
+
+        #region Where to buy selected cryptocurrency
+
+        private string _TextShop;
+
+        public string TextShop
+        {
+            get => _TextShop;
+            set
+            {
+                _TextShop = value;
+                OnPropertyChanged("TextShop");
+            }
+        }
+        /// <summary>
+        /// Creating a text (website + price) about all available markets for selected cryptocurrency
+        /// </summary>
+        /// <param name="markets"></param>
+        public string CreateShopText(List<MarketModel> markets)
+        {
+            string res = "";
+
+            for (int i = 0; i < markets.Count; i++)
+            {
+                res += markets[i].exchange_id + ".com";
+                if (markets[i].exchange_id.Length > 8)
+                    res += "\t";
+                else
+                    res += "\t\t";
+                res += markets[i].price_unconverted + "$\n";
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// Loading the list of markets for selected cryptocurrency
+        /// </summary>
+        /// <param name="asset"></param>
+        public static List<MarketModel> LoadMarketAsset(AssetModel asset)
+        {
+            string url = "https://www.cryptingup.com/api/assets/" + asset.asset_id + "/markets";
+            try
+            {
+                string JSON = new WebClient().DownloadString(url);
+                var data = JsonConvert.DeserializeObject<MarketListModel>(JSON);
+                return data.Markets.ToList();
+            }
+            catch (Exception exp)
+            {
+                throw new InvalidOperationException("Can`t get the data.", exp);
+            }
         }
         #endregion
     }

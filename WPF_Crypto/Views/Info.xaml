@@ -13,7 +13,7 @@
             Type in currency name or code <LineBreak/> to search more info about it.
         </TextBlock>
         <!--#endregion-->
-        
+
         <!--#region Filter textbox -->
         <TextBox
             Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}"
@@ -23,7 +23,7 @@
             VerticalAlignment="Top"
             Width="190"/>
         <!--#endregion-->
-        
+
         <!--#region ListBox of Assets -->
         <ListBox ItemsSource="{Binding AssetsView}" 
                  AlternationCount="1"
@@ -50,19 +50,42 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <!--#endregion-->
-        
-        <!--#region Detailed information TextBox -->
-        <TextBox
-            HorizontalAlignment="Left"
-            Margin="220,87,0,0"
-            TextWrapping="Wrap"
-            VerticalAlignment="Top" 
-            Background="{x:Null}"
-            FontSize="14"
-            Width="288"
-            Height="211"
-            Text="{Binding TEXT}">
-        </TextBox>
+
+        <!--#region TabControl -->
+        <TabControl Margin="220,69,38,32">
+            <TabItem Header="Information">
+                <Grid Background="White">
+                    <!--#region Detailed information TextBox -->
+                    <TextBox
+                        HorizontalAlignment="Center"
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Top" 
+                        Background="{x:Null}"
+                        FontSize="14"
+                        Width="300"
+                        Height="216"
+                        IsReadOnly="True"
+                        Text="{Binding TextInfo}"/>
+                    <!--#endregion-->
+                </Grid>
+            </TabItem>
+            <TabItem Header="Where to buy">
+                <Grid Background="White">
+                    <!--#region Detailed information TextBox -->
+                    <TextBox
+                        HorizontalAlignment="Center"
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Top" 
+                        Background="{x:Null}"
+                        FontSize="11"
+                        Width="300"
+                        Height="217"
+                        IsReadOnly="True"
+                        Text="{Binding TextShop}"/>
+                    <!--#endregion-->
+                </Grid>
+            </TabItem>
+        </TabControl>
         <!--#endregion-->
     </Grid>
 </Page>

@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.ComponentModel;
-
-namespace WPF_Crypto.Models
+﻿namespace WPF_Crypto.Models
 {
     internal class AssetModel
     {

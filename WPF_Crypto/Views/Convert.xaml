@@ -9,66 +9,82 @@
       Title="Page1">
 
     <Grid>
-        <ComboBox
-            HorizontalAlignment="Left"
-            Margin="190,67,0,0"
-            VerticalAlignment="Top"
-            Width="195"
-            ItemsSource="{Binding ASSETS}"
-            SelectedItem="{Binding FirstPortfolioToCompare}"
-            Text="{Binding asset_id}"
-            >
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Width="330">
-                        <TextBlock >
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0} {1}">
-                                    <Binding Path="asset_id"/>
-                                    <Binding Path="name"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                        <!--<TextBlock Text="{Binding Path=Assets}" Foreground="Black"
-                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
-                    </StackPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-
-        </ComboBox>
-        <ComboBox
-            HorizontalAlignment="Left"
-            Margin="190,146,0,0"
-            VerticalAlignment="Top"
-            Width="195"
-            ItemsSource="{Binding ASSETS}"
-            SelectedItem="{Binding FirstPortfolioToCompare}"
-            Text="{Binding asset_id}"
-            >
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Width="330">
-                        <TextBlock >
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0} {1}">
-                                    <Binding Path="asset_id"/>
-                                    <Binding Path="name"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                        <!--<TextBlock Text="{Binding Path=Assets}" Foreground="Black"
-                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
-                    </StackPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-
-        </ComboBox>
+        <!--#region Labels -->
         <Label Content="Convert one currency to another" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="26"/>
-        <TextBox HorizontalAlignment="Left" Margin="10,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Height="22"/>
-        <TextBox HorizontalAlignment="Left" Margin="10,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Height="22"/>
-        <Button Content="↓" HorizontalAlignment="Left" Height="35" Margin="180,100,0,0" VerticalAlignment="Top" Width="17" FontSize="24"/>
-        <TextBox HorizontalAlignment="Left" Margin="10,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Height="22"/>
-        <TextBox HorizontalAlignment="Left" Margin="10,146,0,0" IsReadOnly="True" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Height="22"/>
+        <Label Content="I exchange" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label Content="of" HorizontalAlignment="Left" Margin="271,108,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label Content="of" HorizontalAlignment="Left" Margin="271,192,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label Content="I will get" HorizontalAlignment="Left" Margin="17,192,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <!--#endregion-->
 
+        <!--#region First ComboBox -->
+        <ComboBox
+            HorizontalAlignment="Left"
+            Margin="299,111,0,0"
+            VerticalAlignment="Top"
+            Width="195"
+            ItemsSource="{Binding ASSETS}"
+            SelectedItem="{Binding FirstPortfolioToCompare}"
+            Text="{Binding asset_id}" Height="22"
+            >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Width="330">
+                        <TextBlock >
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="asset_id"/>
+                                    <Binding Path="name"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+        </ComboBox>
+        <!--#endregion-->
+
+        <!--#region First TextBox -->
+        <TextBox HorizontalAlignment="Left" Margin="91,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Height="22"/>
+        <!--#endregion-->
+
+        <!--#region Second ComboBox -->
+        <ComboBox
+            HorizontalAlignment="Left"
+            Margin="299,195,0,0"
+            VerticalAlignment="Top"
+            Width="194"
+            ItemsSource="{Binding ASSETS}"
+            SelectedItem="{Binding FirstPortfolioToCompare}"
+            Text="{Binding asset_id}"
+            >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Width="330">
+                        <TextBlock >
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="asset_id"/>
+                                    <Binding Path="name"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+        </ComboBox>
+        <!--#endregion-->
+
+        <!--#region First TextBox -->
+        <TextBox Background="Silver" HorizontalAlignment="Left" IsReadOnly="True" Margin="91,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Height="22"/>
+        <!--#endregion-->
+
+        <!--#region Button -->
+        <Button
+            Content="↓"
+            HorizontalAlignment="Left" Height="45" Margin="274,142,0,0" VerticalAlignment="Top" Width="17" FontSize="24" RenderTransformOrigin="0.647,0.514"/>
+        <!--#endregion-->
     </Grid>
 </Page>
